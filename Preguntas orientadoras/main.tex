@@ -37,13 +37,22 @@
     y M4.
     
     A grandes rasgos la diferencia es el costo, la velocidad y el consumo de energía. Los 
-    cortex M0 estan optimizados para ocupar la menor cantidad de silicio y ser lo mas baratos 
+    Cortex M0 están optimizados para ocupar la menor cantidad de silicio y ser lo mas baratos 
     posible. Frente a los Cortex M3 las diferencias a nivel de Hardware se traducen en
     que algunos core peripherals son opcionales, una arquitectura de memoria Von Neumann y la 
     falta de MPU. Por otro lado, los Cortex M4 añaden la posibilidad de contar opcionalmente 
     con una FPU e instrucciones de DSP. De esta manera, entre los Cortex M0 y M4 el rendimiento
-    es creciente, asi como tambien el costo y el consumo de energia debido a la mayor cantidad 
-    de features implementadas en hardaware.
+    es creciente, asi como también el costo y el consumo de energía debido a la mayor cantidad 
+    de features implementadas en hardware.
+    
+    \item ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código?
+    Explique
+    
+    El set de instrucciones Thumb permite mezclar instrucciones de 16 y 32 bits sin que exista una 
+    sobrecarga asociada al cambio. Esto da lugar a que operaciones mas simples puedan ser llevadas 
+    a cabo con instrucciones de 16 bits en vez de 32 bits. Como resultado, se logra 
+    una mayor densidad de código que al solo utilizar instrucciones de 32 bits para operaciones simples
+    y complejas.
     
 \end{enumerate}
 \end{document}
