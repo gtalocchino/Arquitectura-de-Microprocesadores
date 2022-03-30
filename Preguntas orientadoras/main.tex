@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+\usepackage{graphicx}
 
 \title{Arquitectura de Microprocesadores}
 \author{Gianfranco Talocchino}
@@ -23,8 +24,8 @@
     
     \begin{itemize}
         \item Cortex A (\emph{\textbf{A}pplication}): Es la que ofrece mayor rendimiento. Está 
-        orientada la ejecución de sistemas operativos como \emph{Linux} y derivados. Su aplicación
-        principal son computadoras, celulares, \emph{tablets}, etc.
+        orientada la ejecución de sistemas operativos como \emph{Linux} y derivados. Su 
+        aplicación principal son computadoras, celulares, \emph{tablets}, etc.
         \item Cortex R (\emph{\textbf{R}eal-Time}): Esta orientada y optimizada a aplicaciones 
         \emph{real-time}. Su aplicación se centra en la industria médica, aeronáutica, etc.
         \item Cortex M (\emph{\textbf{M}icrocontrollers}): Esta orientada al uso en 
@@ -51,15 +52,33 @@
     El set de instrucciones Thumb permite mezclar instrucciones de 16 y 32 bits sin que exista una 
     sobrecarga asociada al cambio. Esto da lugar a que operaciones mas simples puedan ser llevadas 
     a cabo con instrucciones de 16 bits en vez de 32 bits. Como resultado, se logra 
-    una mayor densidad de código que al solo utilizar instrucciones de 32 bits para operaciones simples
-    y complejas.
+    una mayor densidad de código que al solo utilizar instrucciones de 32 bits para operaciones 
+    simples y complejas.
         
     \item ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este
     tipo de arquitectura?
     
-    Una arquitectura de hardware load-store es aquella que solo las instrucciones load y store acceden 
-    a memoria RAM. El resto de operaciones (aritméticas, lógicas, etc ..) usan solo registros internos del 
-    procesador
+    Una arquitectura de hardware load-store es aquella que solo las instrucciones load y store 
+    acceden a memoria RAM. El resto de operaciones (aritméticas, lógicas, etc ..) usan solo 
+    registros internos del procesador
+    
+    \item ¿Cómo es el mapa de memoria de la familia?
+    Los Cortex M tiene un sistema de memoria con direcciones de 32 bits que
+    generan un espacio de lineal de direcciones de 4GB. El cual, está participando en 
+    número de regiones asignados a diferentes usos.
+    \begin{itemize}
+        \item Código de programa
+        \item RAM
+        \item Periféricos
+        \item Registros de control
+    \end{itemize}
+    
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.6]{map}
+        \caption{Mapa de memoria de la familia Cortex M.}
+        \label{fig:my_label}
+    \end{figure}
     
 \end{enumerate}
 \end{document}
