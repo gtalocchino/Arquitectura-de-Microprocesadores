@@ -5,6 +5,10 @@
 \usepackage{lmodern}
 \usepackage{graphicx}
 
+\makeatletter
+\newcommand\setItemnumber[1]{\setcounter{enum\romannumeral\@enumdepth}{\numexpr#1-1\relax}}
+\makeatother
+
 \title{Arquitectura de Microprocesadores}
 \author{Gianfranco Talocchino}
 \date{Marzo - Abril de 2022}
@@ -47,7 +51,7 @@
     de features implementadas en hardware.
     
     \item ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código?
-    Explique
+    Explique.
     
     El set de instrucciones Thumb permite mezclar instrucciones de 16 y 32 bits sin que exista una 
     sobrecarga asociada al cambio. Esto da lugar a que operaciones mas simples puedan ser llevadas 
@@ -60,12 +64,13 @@
     
     Una arquitectura de hardware load-store es aquella que solo las instrucciones load y store 
     acceden a memoria RAM. El resto de operaciones (aritméticas, lógicas, etc ..) usan solo 
-    registros internos del procesador
+    registros internos del procesador.
     
     \item ¿Cómo es el mapa de memoria de la familia?
     Los Cortex M tiene un sistema de memoria con direcciones de 32 bits que
     generan un espacio de lineal de direcciones de 4GB. El cual, está participando en 
-    número de regiones asignados a diferentes usos.
+    número de regiones asignados a diferentes usos. En la Figura \ref{fig:map} se muestra
+    un ejemplo.
     \begin{itemize}
         \item Código de programa
         \item RAM
@@ -73,13 +78,32 @@
         \item Registros de control
     \end{itemize}
     
-    \begin{figure}
+    \begin{figure}[!ht]
         \centering
         \includegraphics[scale=0.6]{map}
         \caption{Mapa de memoria de la familia Cortex M.}
-        \label{fig:my_label}
+        \label{fig:map}
     \end{figure}
     
+    \setItemnumber{7}
+    \item ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
+    
+    Se dice que una arquitectura de hardware posee un modelo de registros ortogonales 
+    cuando el conjunto de instrucciones no impone la limitación de que una cierta instrucción
+    deba utilizar exclusivamente un registro especifico. La arquitectura ARM Cortex M posee
+    modelo de registros ortogonales. Otras arquitecturas como x86 no.
+    
+    \setItemnumber{12}
+    \item ¿Qué entiende por ``core peripherals''? ¿Qué diferencia existe entre estos y 
+    el resto de los periféricos?
+    
+    Se entiende por ``core peripherals'' a aquellos periféricos que son específicos del 
+    procesador, en este caso, procesadores de la familia Cortex M. Se diferencian de los 
+    periféricos añadidos por los fabricantes de microcontroladores en que estos son provistos 
+    por ARM. El resto, si bien puede agregar las mismas funcionalidades su implementación y capacidad
+    variarán notablemente entre fabricantes. Algunos ejemplos de core peripherals para ARM Cortex M 
+    incluyen el NVIC, el SysTick, la MPU.
 \end{enumerate}
+
 \end{document}
 
