@@ -21,3 +21,9 @@ void dot_product_32(uint32_t *in, uint32_t *out, uint32_t size, uint32_t k) {
    }
 }
 
+void dot_product_16(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k) {
+   for (uint32_t i = 0; i < size; i++) {
+      out[i] = k * in[i];
+   }
+}
+
