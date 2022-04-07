@@ -27,3 +27,13 @@ void dot_product_16(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k) {
    }
 }
 
+void dot_product_12(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k) {
+   for (uint32_t i = 0; i < size; i++) {
+      out[i] = k * in[i];
+
+      if (out[i] > 0xfff) {
+         out[i] = 0xfff;
+      }
+   }
+}
+
