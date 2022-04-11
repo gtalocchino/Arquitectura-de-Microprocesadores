@@ -12,6 +12,7 @@
 
 
 .global asm_zeros
+.global asm_dot_product_32
 
 
 .thumb_func
@@ -23,3 +24,12 @@
       bne .asm_zeros_loop
       mov pc, lr
 
+.thumb_func
+   asm_dot_product_32:
+   .asm_dot_product_32_loop:
+      ldr r4, [r0], #4
+      mul r5, r4, r3
+      str r5, [r1], #4
+      subs r2, #1
+      bne .asm_dot_product_32_loop
+      mov pc, lr
