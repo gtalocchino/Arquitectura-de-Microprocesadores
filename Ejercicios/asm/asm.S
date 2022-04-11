@@ -14,6 +14,7 @@
 .global asm_zeros
 .global asm_dot_product_32
 .global asm_dot_product_16
+.global asm_dot_product_12
 
 
 .thumb_func
@@ -45,3 +46,16 @@
       bne .asm_dot_product_16_loop
       mov pc, lr
 
+.thumb_func
+   asm_dot_product_12:
+   .asm_dot_product_12_loop:
+      ldrh r4, [r0], #2
+      mul r5, r4, r3
+      ldr r6, =0xfff
+      cmp r5, r6
+      ITT HI
+      movhi r5, r6	;movhi r5, r6
+      strh r5, [r1], #2
+      subs r2, #1
+      bne .asm_dot_product_12_loop
+      mov pc, lr
