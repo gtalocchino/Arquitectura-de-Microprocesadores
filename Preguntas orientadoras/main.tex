@@ -103,6 +103,29 @@
     por ARM. El resto, si bien puede agregar las mismas funcionalidades su implementación y capacidad
     variarán notablemente entre fabricantes. Algunos ejemplos de core peripherals para ARM Cortex M 
     incluyen el NVIC, el SysTick, la MPU.
+    
+    \setItemnumber{14}
+    \item ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
+    
+    El estándar llamado Common Microcontroller Software Interface Standard (CMSIS) desarrollado por 
+    ARM es un capa de abstracción para microcontroladores Cortex M. Se encargar de definir interfaces
+    para acceso al hardware genérico que estos comparten. Entre las ventajas que aporta se encuentran:
+    
+    \begin{itemize}
+        \item Reduce la curva de aprendizaje del programador.
+        \item Reduce los costos de desarrollo.
+    \end{itemize}
+    
+    \setItemnumber{17}
+    \item ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad 
+    de los sistemas operativos embebidos?
+    
+    Systick es simplemente un timer presente dentro los microcontroladores basados en ARM Cortex M. 
+    En sistemas operativos de tiempo real se usa como temporizador del planificador de tareas. Al estar
+    definido por ARM y no variar de un fabricante de microcontrolador a otro facilita
+    su portabilidad. Esto ocurre ya que no se necesita cambiar esta fuente de temporización 
+    constantemente cuando se pasa de un microcontrolador a otro.
+    
 \end{enumerate}
 
 \end{document}
