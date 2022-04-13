@@ -37,3 +37,14 @@ void dot_product_12(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k) {
    }
 }
 
+void window_filter(uint16_t *in, uint16_t *out, uint32_t size) {
+   for (uint32_t i = 0; i < size; i++) {
+      uint32_t sum = 0;
+      for (uint32_t j = 0; j < 10; j++) {
+         sum += in[(i + j) % size];
+      }
+
+      out[i] = sum / 10;
+   }
+}
+
