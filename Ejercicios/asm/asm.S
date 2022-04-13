@@ -27,6 +27,7 @@
       mov pc, lr
 
 .thumb_func
+   push {r4-r5}
    asm_dot_product_32:
    .asm_dot_product_32_loop:
       ldr r4, [r0], #4
@@ -34,20 +35,24 @@
       str r5, [r1], #4
       subs r2, #1
       bne .asm_dot_product_32_loop
+      pop {r4-r5}
       mov pc, lr
 
 .thumb_func
    asm_dot_product_16:
+   push {r4-r5}
    .asm_dot_product_16_loop:
       ldrh r4, [r0], #2
       mul r5, r4, r3
       strh r5, [r1], #2
       subs r2, #1
       bne .asm_dot_product_16_loop
+      pop {r4-r5}
       mov pc, lr
 
 .thumb_func
    asm_dot_product_12:
+   push {r4-r6}
    .asm_dot_product_12_loop:
       ldrh r4, [r0], #2
       mul r5, r4, r3
@@ -58,4 +63,6 @@
       strh r5, [r1], #2
       subs r2, #1
       bne .asm_dot_product_12_loop
+      pop {r4-r6}
       mov pc, lr
+
