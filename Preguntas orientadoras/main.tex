@@ -108,6 +108,32 @@
     deba utilizar exclusivamente un registro especifico. La arquitectura ARM Cortex M posee
     modelo de registros ortogonales. Otras arquitecturas como x86 no.
     
+    
+    \setItemnumber{8}
+    \item ¿Qué ventajas presenta el uso de instrucciones de ejecución condicional (IT)? Dé un
+    ejemplo
+    
+    El uso de instrucciones de ejecución condicional reduce el numero de instrucciones de salto
+    en un programa. Esto por un lado mejora la densidad de código y por otro aumenta el rendimiento.
+    Por ejemplo, las instrucciones de salto con costosas para el procesador ya que toma tres ciclos de 
+    reloj rellenar nuevamente el pipeline luego de un salto. 
+
+    \setItemnumber{9}
+    \item Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
+    
+    \begin{description}
+        \item [Reset:] Esta excepcion es lanzada justo despues de que el procesador se reinicia.
+        Su manejador es realmente el punto de entrada del programa que se esta ejecutando.
+        \item[NMI:] se trata de una excepción especial, que tiene la máxima prioridad después de 
+        la de reset. Al igual que la excepción de reset, no puede ser enmascarada (es decir, desactivada), 
+        y puede ser asociada a actividades críticas e inaplazables.
+        \item[Hardfault:] es la excepción de fallo genérica, y por tanto relacionada con las excepciones de 
+        software. Cuando las otras excepciones están deshabilitadas, actúa como colector de todo tipo de 
+        excepciones (por ejemplo, un acceso a la memoria a una ubicación no válida, se activan las 
+        excepciones de hard fault si la de bus fault no está activada).
+        
+    \end{description}
+    
     \setItemnumber{10} 
     \item Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado 
     a funciones y su retorno?
