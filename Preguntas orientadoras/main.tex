@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{graphicx}
+\usepackage{amsmath}
 
 \makeatletter
 \newcommand\setItemnumber[1]{\setcounter{enum\romannumeral\@enumdepth}{\numexpr#1-1\relax}}
@@ -152,8 +153,8 @@
     Systick es simplemente un timer presente dentro los microcontroladores basados en ARM Cortex M. 
     En sistemas operativos de tiempo real se usa como temporizador del planificador de tareas. Al estar
     definido por ARM y no variar de un fabricante de microcontrolador a otro facilita
-    su portabilidad. Esto ocurre ya que no se necesita cambiar esta fuente de temporización constantemente 
-    cuando se pasa de un microcontrolador a otro.
+    su portabilidad. Esto ocurre ya que no se necesita cambiar esta fuente de temporización 
+    constantemente cuando se pasa de un microcontrolador a otro.
     
     \setItemnumber{18}
     \item ¿Qué funciones cumple la unidad de protección de memoria (MPU)?
@@ -192,8 +193,54 @@
     
     El sufijo "s" se utiliza para que durante la ejecución de una instrucción se actualice 
     opcionalmente los flags del carry, overlfow, cero y negativo (Application Program Status Register)
-
-
+    
+    \item ¿Qué utilidad tiene la implementación de instrucciones de aritmética saturada? Dé un 
+    ejemplo con operaciones con datos de 8 bits.
+    
+    La implementación de aritmética saturada tiene varias ventajas practicas. Permite detectar overflow 
+    de sumas y multiplicaciones en forma mas consistente y simple con una sola comparación con el valor
+    máximo o mínimo. Además, permite implementar algoritmos utilizados en procesamiento digital de
+    señalas más eficientemente. Por ejemplo, ajustar el nivel de una señal puede resultar en un overflow
+    y la saturación causa una distorsión significativamente menor que la provocada por el overlfow.
+    
+    A continuación se muestra un ejemplo de operación de utilizando aritmética saturada para 8 bits.
+    
+    \begin{equation}
+    \begin{split}
+    100 &+ 20 \rightarrow{} 120 \\
+    100 &+ 60 \rightarrow{} 127 \,\, \text{(no -96)} \\
+    100 &+ 28 \rightarrow{} -127  \,\,  \text{(no -128)} \\
+    -50 &- 5 \rightarrow{} -55 \\
+    -50 &- 90 \rightarrow{} -128  \,\,  \text{(no 140)} \\
+    -90 &- 100 \rightarrow{} -128  \,\,  \text{(no 190)}
+    \end{split}
+    \end{equation}
+    
+    
+    \item Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos de las 
+    funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la pila 
+    antes de ser modificados?
+    
+    El mecanismo que define la interfaz entre assembler y C se llama "Procedure Call Standard" (PCC) y 
+    esta definido por ARM. En él, se especifica que los los primeros cuatro parámetros de una función 
+    se pasan en los registros r0, r1, r2 y r3. El resultado debe devolverse a través del registro r0. 
+    En caso de que se pasen mas de 4 parámetros el pasaje debe hacerse a través del stack. Los registros 
+    restantes r4-10, pc y lr deben guardarse en el stack para ser preservados antes de utilizarse.
+    
+    \item¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.
+    
+    Se entiende por una instrucción SIMD (Single instruction, multiple data) a aquella que aplica en 
+    paralelo la misma operación sobre un grupo de datos que comúnmente se conoce como vector.
+    
+    Una aplicación que puede aprovechar las ventajas de SIMD es aquella en la que el mismo valor 
+    se suma a (o se resta de) un gran número de puntos de datos, una operación habitual en muchas 
+    aplicaciones multimedia y de procesamiento de señales.
+    
+    Un ejemplo sería cambiar el brillo de una imagen. Cada píxel de una imagen consta de tres valores 
+    para el brillo, los componentes rojo (R), verde (G) y azul (B) del color. Para cambiar el brillo, 
+    los valores R, G y B se leen de la memoria, se les suma (o resta) un valor y los valores 
+    resultantes se escriben de nuevo en la memoria.
+    
 \end{enumerate}
 
 \end{document}
