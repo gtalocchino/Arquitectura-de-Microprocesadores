@@ -64,5 +64,15 @@ void dot_product_12(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k);
  */
 void window_filter(uint16_t *in, uint16_t *out, uint32_t size);
 
+/**
+ * @brief Packages a 32-bit signed integer into a 16-bit signed integer.
+ *
+ * @param[in] in Pointer to the input array
+ * @param[out] out Pointer to the output array
+ * @param[in] size Array size
+ *
+ */
+void pack_32_to_16(int32_t *in, int16_t *out, uint32_t size);
+
 #endif /* C_H_ */
 
