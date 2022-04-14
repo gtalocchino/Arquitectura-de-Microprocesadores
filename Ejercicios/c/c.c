@@ -79,3 +79,11 @@ void downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n) {
    }
 }
 
+void reverse(uint16_t *in, uint32_t size) {
+   for (uint32_t i = 0; i < size / 2; i++) {
+      uint16_t temp = in[i];
+      in[i] = in[size - i - 1];
+      in[size - i - 1] = temp;
+   }
+}
+

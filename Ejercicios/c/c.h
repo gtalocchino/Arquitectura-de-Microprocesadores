@@ -95,5 +95,13 @@ int32_t max(int32_t *in, uint32_t size);
  */
 void downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n);
 
+/**
+ * @brief Inverts the elements of an array.
+ *
+ * @param[in] in Pointer to the array
+ * @param[in] size Array size
+ *
+ */
+void reverse(uint16_t *in, uint32_t size);
 #endif /* C_H_ */
 
