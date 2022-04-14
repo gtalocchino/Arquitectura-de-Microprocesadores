@@ -164,5 +164,31 @@
     
 \end{enumerate}
 
+\subsection{ISA}
+
+\begin{enumerate}
+    \item ¿Qué son los sufijos y para qué se los utiliza? Dé un ejemplo
+    
+    Los sufijos son modificadores que pueden agregarse opcionalmente a algunas instrucciones. Se 
+    colocan al final del mnemónico.
+    
+    Existen tres tipos de sufijo en assembler para ARM Cortex M
+    
+    \begin{itemize}
+        \item Sufijo "s": permite indicar opcionalmente si instrucciones actualizan el 
+        Application Program Status Register (APSR).
+        \item Sufijo de ejecución condicional: permiten ejecutar instrucciones.
+        condicionalmente
+        \item Sufijos de precisión: permiten indicar la cantidad de bits involucrados en la operación
+        de una instrucción. Para Cortex M existen 3 tipos:
+        \begin{itemize}
+            \item byte (b): 8 bits
+            \item halfword (h): 16 bits
+            \item word (w): 32 bits
+        \end{itemize}
+    \end{itemize}
+
+\end{enumerate}
+
 \end{document}
 
