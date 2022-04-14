@@ -85,6 +85,20 @@
         \label{fig:map}
     \end{figure}
     
+    \item ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?
+    
+    ARM Cortex M tiene dos stack pointers. Se encuentran en diferentes bancos por lo 
+    tanto solo uno es visible en un momento dado. Los dos stack pointers son los siguientes
+    \begin{itemize}
+        \item Main Stack Pointer (MSP)
+        \item Process Stack Pointer (PSP)
+    \end{itemize}
+    
+    El MSP generalmente es reservado para el uso del kernel y manejos de excepciones mientras que 
+    PSP se utiliza en las tareas. La ventaja que presenta es que el MSP se encuentra protegido del
+    stack del usuario incluso si el stack de usuario hizo overflow. Esto facilita la implementación
+    de sistemas operativos.
+  
     \setItemnumber{7}
     \item ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
     
@@ -115,6 +129,21 @@
         \item Reduce la curva de aprendizaje del programador.
         \item Reduce los costos de desarrollo.
     \end{itemize}
+    
+    \setItemnumber{16}
+    \item Explique las características avanzadas de atención a interrupciones: tail chaining y late
+    arrival.
+    
+    \begin{itemize}
+        \item tail chaining: Es una optimización realizada en el manejo de interrupciones en donde 
+        interrupciones consecutivas se atienden sin la necesidad de guardar y restaurar el contexto del 
+        procesador nuevamente  
+        
+        \item late arrival: Es una característica en la cual si una interrupción con mayor prioridad llega 
+        mientras atiende una de menor prioridad, el Cortex-M detiene el proceso y atiende primero la 
+        interrupción de mayor prioridad.
+    \end{itemize}
+    
     
     \setItemnumber{17}
     \item ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad 
