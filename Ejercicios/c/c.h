@@ -74,5 +74,15 @@ void window_filter(uint16_t *in, uint16_t *out, uint32_t size);
  */
 void pack_32_to_16(int32_t *in, int16_t *out, uint32_t size);
 
+/**
+ * @brief Returns the index of the maximum index.
+ *
+ * @param[in] in Pointer to the input array
+ * @param[in] size Array size
+ *
+ * @retval Maximum index
+ */
+int32_t max(int32_t *in, uint32_t size);
+
 #endif /* C_H_ */
 

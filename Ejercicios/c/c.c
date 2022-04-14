@@ -54,3 +54,14 @@ void pack_32_to_16(int32_t *in, int16_t *out, uint32_t size) {
    }
 }
 
+int32_t max(int32_t *in, uint32_t size) {
+   int32_t max_index = 0;
+   for (uint32_t i = 1; i < size; i++) {
+      if (in[i] > in[max_index]) {
+         max_index = i;
+      }
+   }
+
+   return max_index;
+}
+
