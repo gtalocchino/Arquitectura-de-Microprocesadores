@@ -84,5 +84,16 @@ void pack_32_to_16(int32_t *in, int16_t *out, uint32_t size);
  */
 int32_t max(int32_t *in, uint32_t size);
 
+/**
+ * @brief Performs the decimator filter operation.
+ *
+ * @param[in] in Pointer to the input array
+ * @param[out] out Pointer to the output array
+ * @param[in] size Array size
+ * @param[in] n Decimator factor
+ *
+ */
+void downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n);
+
 #endif /* C_H_ */
 

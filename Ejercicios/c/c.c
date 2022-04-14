@@ -65,3 +65,17 @@ int32_t max(int32_t *in, uint32_t size) {
    return max_index;
 }
 
+void downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n) {
+   uint32_t c = 0;
+   uint32_t j = 0;
+   for (uint32_t i = 0; i < size; i++) {
+      if (c == n) {
+         c = 0;
+         continue;
+      }
+      out[j] = in[i];
+      j++;
+      c++;
+   }
+}
+
