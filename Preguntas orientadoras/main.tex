@@ -108,6 +108,36 @@
     deba utilizar exclusivamente un registro especifico. La arquitectura ARM Cortex M posee
     modelo de registros ortogonales. Otras arquitecturas como x86 no.
     
+    \setItemnumber{10} 
+    \item Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado 
+    a funciones y su retorno?
+    
+    Las funciones principales de la pila son:
+    
+    \begin{itemize}
+        \item Cuando un programa ejecuta una función que utiliza los registros internos del procesador, 
+        los datos que contienen estos registros son almacenados temporalmente en el stack para luego ser
+        restaurados al final de la ejecución de la función.
+        \item Para almacenar del estado del procesador y los valores de los registros internos en 
+        el caso de que ocurra una excepción.
+        \item Para almacenar variables locales.
+        \item Para el pasaje de los parámetros de funciones en C que son llamadas siguiendo 
+        el "Procedure Call Standard". En este caso recién a partir del quinto parámetro se 
+        comienzan a almacenar en el stack.
+     \end{itemize}
+    
+    \setItemnumber{11} 
+    \item Describa la secuencia de reset del microprocesador.
+    
+    Tras el reinicio y antes de que el procesador comience a ejecutar el programa, los procesadores 
+    Cortex M leen las dos primeras palabras de la memoria. El principio del espacio de memoria contiene
+    la tabla de vectores, y las dos primeras palabras de la tabla de vectores son el valor inicial para el 
+    Main Stack Pointer (MSP). vector son el valor inicial del puntero de la pila principal (MSP), 
+    y el vector de reset, que es la dirección inicial del reset handler. Después de que el procesador 
+    lea estas dos palabras, el procesador configura el MSP y el contador de programa (PC) con estos 
+    valores.
+    
+    
     \setItemnumber{12}
     \item ¿Qué entiende por ``core peripherals''? ¿Qué diferencia existe entre estos y 
     el resto de los periféricos?
