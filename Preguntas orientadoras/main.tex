@@ -99,7 +99,39 @@
     PSP se utiliza en las tareas. La ventaja que presenta es que el MSP se encuentra protegido del
     stack del usuario incluso si el stack de usuario hizo overflow. Esto facilita la implementación
     de sistemas operativos.
+    
+    \item Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y 
+    como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo 
+    privilegiado a no privilegiado y nuevamente a privilegiado.
   
+    Los modos de operación del Cortex M son:
+    \begin{itemize}
+        \item Thumb: Modo cuando el procesador está corriendo código de programa.
+        \item Debug: Modo cuando el procesador detuvo la ejecución de instrucciones
+    \end{itemize}
+    
+    Los modos de privilegio son:
+    
+      \begin{itemize}
+        \item Unprivileged: El procesador ejecuta código que tiene restricciones como por ejemplo
+        el acceso a ciertas áreas de memoria y ciertos registros de control
+        \item Privileged: El es estado por defecto donde el procesador ejecuta código sin restricciones de 
+        acceso.
+    \end{itemize}
+    
+    Los modos de acceso son:
+    
+    \begin{itemize}
+        \item Handler: El procesador esta ejecutando el handler de una excepción. Siempre
+        lo hace en modo privilegiado.
+        \item Thread: El procesador ejecuta código de aplicación. Puede ser en modo 
+        privilegiado y no privilegiado.
+    \end{itemize}
+    
+    De modo privilegiado a no privilegiado se puede pasar simplemente seteando el registro CONTROL en el bit 0.
+    Para pasar de modo no privilegiado a privilegiado es necesario generar una excepción y borrar el bit 0 
+    del registro CONTROL.
+
     \setItemnumber{7}
     \item ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
     
@@ -196,9 +228,9 @@
         interrupciones consecutivas se atienden sin la necesidad de guardar y restaurar el contexto del 
         procesador nuevamente  
         
-        \item late arrival: Es una característica en la cual si una interrupción con mayor prioridad llega 
-        mientras atiende una de menor prioridad, el Cortex-M detiene el proceso y atiende primero la 
-        interrupción de mayor prioridad.
+        \item late arrival: Es una característica en la cual si una interrupción con mayor prioridad 
+        llega mientras atiende una de menor prioridad, el Cortex-M detiene el proceso y atiende primero 
+        la interrupción de mayor prioridad.
     \end{itemize}
     
     
@@ -207,8 +239,8 @@
     de los sistemas operativos embebidos?
     
     Systick es simplemente un timer presente dentro los microcontroladores basados en ARM Cortex M. 
-    En sistemas operativos de tiempo real se usa como temporizador del planificador de tareas. Al estar
-    definido por ARM y no variar de un fabricante de microcontrolador a otro facilita
+    En sistemas operativos de tiempo real se usa como temporizador del planificador de tareas. Al 
+    estar definido por ARM y no variar de un fabricante de microcontrolador a otro facilita
     su portabilidad. Esto ocurre ya que no se necesita cambiar esta fuente de temporización 
     constantemente cuando se pasa de un microcontrolador a otro.
     
