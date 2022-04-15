@@ -261,6 +261,29 @@
     no cubiertas por las regiones definidas disparará excepciones del tipo Memory Management Fault si 
     la excepción está activada o por defecto si no esta activa disparará una excpeción de tipo Hard Fault.
     
+    
+    \setItemnumber{20}
+    \item ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto 
+    de las excepciones? Dé un ejemplo
+    
+    La excepción PendSV (Pended Service Call) es importante para el soporte a sistemas operativos.
+    Se dispara a través del seteo de estado pendiente en el registro ICSR. Se utiliza principalmente 
+    en la implementación de sistemas operativos para la operación clave de context switching 
+    (cambio de contexto). Especificamente lo que hace es retrasar el context switching hasta que 
+    todos los handler de interrupciones se hayan completado asignándole la menor prioridad.
+    
+    A modo de ejemplo cuando se produce un context swithcing una tarea puede llamar a SVC, el procesador 
+    atiende el llamado y setea PendSV. Cuadno sale del SVC entra inmediatamente a PendSV y realiza el 
+    context switching.
+    
+    \setItemnumber{21}
+    \item¿Para qué se suele utilizar la excepción SVC? Explíquelo dentro de un marco de un 
+    sistema operativo embebido.
+    
+    La excepción SVC es  utilizada en el diseño de sistemas operativos para comunicar 
+    las tareas con el kernel. El mecanismo que este provee puede ser visto como una API
+    que permite a la aplicación acceder a los recursos del sistema (como por ejemplo periféricos).
+    
 \end{enumerate}
 
 \subsection{ISA}
