@@ -1,13 +1,12 @@
 /*
- * c.h
+ * asm.h
  *
- *  Created on: Apr 6, 2022
+ *  Created on: Apr 10, 2022
  *      Author: gianfranco
  */
 
-#ifndef C_H_
-#define C_H_
-
+#ifndef INC_ASM_H_
+#define INC_ASM_H_
 
 #include "inttypes.h"
 
@@ -24,7 +23,7 @@ void asm_zeros(uint32_t *p, uint32_t size);
 /**
  * @brief Performs dot product with 32-bit unsigned integers.
  *
- * @param[in] in Pointer to the input array 
+ * @param[in] in Pointer to the input array
  * @param[out] out Pointer to the output array
  * @param[in] size Array size
  * @param[in] k Scalar value
@@ -35,7 +34,7 @@ void asm_dot_product_32(uint32_t *in, uint32_t *out, uint32_t size, uint32_t k);
 /**
  * @brief Performs dot product with 16-bit unsigned integers.
  *
- * @param[in] in Pointer to the input array 
+ * @param[in] in Pointer to the input array
  * @param[out] out Pointer to the output array
  * @param[in] size Array size
  * @param[in] k Scalar value
@@ -46,7 +45,7 @@ void asm_dot_product_16(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k);
 /**
  * @brief Performs dot product Saturating the result to 12 bits.
  *
- * @param[in] in Pointer to the input array 
+ * @param[in] in Pointer to the input array
  * @param[out] out Pointer to the output array
  * @param[in] size Array size
  * @param[in] k Scalar value
@@ -54,5 +53,15 @@ void asm_dot_product_16(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k);
  */
 void asm_dot_product_12(uint16_t *in, uint16_t *out, uint32_t size, uint16_t k);
 
-#endif /* C_H_ */
+/**
+ * @brief Performs a window filter with size 10.
+ *
+ * @param[in] in Pointer to the input array
+ * @param[out] out Pointer to the output array
+ * @param[in] size Array size
+ *
+ */
+void asm_window_filter(uint16_t *in, uint16_t *out, uint32_t size);
+
+#endif /* INC_ASM_H_ */
 

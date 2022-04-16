@@ -15,6 +15,7 @@
 .global asm_dot_product_32
 .global asm_dot_product_16
 .global asm_dot_product_12
+.global asm_window_filter
 
 
 .thumb_func
@@ -26,9 +27,10 @@
       bne .asm_zeros_loop
       mov pc, lr
 
+
 .thumb_func
-   push {r4-r5}
    asm_dot_product_32:
+   push {r4-r5}
    .asm_dot_product_32_loop:
       ldr r4, [r0], #4
       mul r5, r4, r3
@@ -37,6 +39,7 @@
       bne .asm_dot_product_32_loop
       pop {r4-r5}
       mov pc, lr
+
 
 .thumb_func
    asm_dot_product_16:
@@ -49,6 +52,7 @@
       bne .asm_dot_product_16_loop
       pop {r4-r5}
       mov pc, lr
+
 
 .thumb_func
    asm_dot_product_12:
@@ -65,4 +69,38 @@
       bne .asm_dot_product_12_loop
       pop {r4-r6}
       mov pc, lr
+
+
+.thumb_func
+	asm_window_filter:
+	push {r4-r9}
+	sub r3, r2, #1
+
+	mov r4, #0
+	.asm_window_filter_loop_1:
+	mov r5, #0
+	mov r9, #0
+	.asm_window_filter_loop_2:
+
+	add r6, r5, r4
+  	udiv r7, r6, r2
+  	mls r7, r2, r7, r6
+
+	ldrh r8, [r0, r7, LSL 1]
+	add r9, r8
+
+	add r5, #1
+	cmp r5, #10
+	bne .asm_window_filter_loop_2
+
+	mov r6, #10
+	udiv r9, r9, r6
+	strh r9, [r1], #2
+
+	add r4, #1
+	cmp r4, r2
+	bne .asm_window_filter_loop_1
+
+	pop {r4-r9}
+	mov pc, lr
 
