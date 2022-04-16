@@ -16,6 +16,7 @@
 .global asm_dot_product_16
 .global asm_dot_product_12
 .global asm_window_filter
+.global asm_pack_32_to_16
 
 
 .thumb_func
@@ -102,5 +103,23 @@
 	bne .asm_window_filter_loop_1
 
 	pop {r4-r9}
+	mov pc, lr
+
+
+.thumb_func
+	asm_pack_32_to_16:
+	push {r4}
+	ldr r3, =0xffff
+	.asm_pack_32_to_16_loop:
+	ldr r4, [r0], #4
+
+	lsr r4, r4, 16
+	and r4, r4, r3
+
+	strh r4, [r1], #2
+
+	subs r2, #1
+	bne .asm_pack_32_to_16_loop
+	pop {r4}
 	mov pc, lr
 
