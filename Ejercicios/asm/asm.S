@@ -17,6 +17,7 @@
 .global asm_dot_product_12
 .global asm_window_filter
 .global asm_pack_32_to_16
+.global asm_max
 
 
 .thumb_func
@@ -121,5 +122,31 @@
 	subs r2, #1
 	bne .asm_pack_32_to_16_loop
 	pop {r4}
+	mov pc, lr
+
+
+.thumb_func
+	asm_max:
+	push {r4-r5}
+	mov r2, #1
+
+	mov r3, #0
+	ldr r4, [r0], #4
+
+	.asm_max_loop:
+
+	ldr r5, [r0], #4
+	cmp r5, r4
+
+	ITT GT
+	movgt r4, r5
+	movgt r3, r2
+
+	add r2, #1
+	cmp r1, r2
+	bgt .asm_max_loop
+	pop {r4-r5}
+
+	mov r0, r3
 	mov pc, lr
 
