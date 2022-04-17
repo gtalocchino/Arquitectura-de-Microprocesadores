@@ -18,6 +18,7 @@
 .global asm_window_filter
 .global asm_pack_32_to_16
 .global asm_max
+.global asm_downsample
 
 
 .thumb_func
@@ -148,5 +149,32 @@
 	pop {r4-r5}
 
 	mov r0, r3
+	mov pc, lr
+
+
+.thumb_func
+	asm_downsample:
+	push {r4-r5}
+	mov r4, #0
+	.downsample_loop:
+	cmp r2, #0
+	beq .downsample_out
+
+	ldr r5, [r0], #4
+
+	cmp r3, r4
+	ITTT EQ
+	moveq r4, #0
+	subeq r2, #1
+	beq .downsample_loop
+
+	str r5, [r1], #4
+
+	add r4, #1
+
+	subs r2, #1
+	bne .downsample_loop
+	.downsample_out:
+	pop {r4-r5}
 	mov pc, lr
 

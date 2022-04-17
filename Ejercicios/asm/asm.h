@@ -83,5 +83,16 @@ void asm_pack_32_to_16(int32_t *in, int16_t *out, uint32_t size);
  */
 int32_t asm_max(int32_t *in, uint32_t size);
 
+/**
+ * @brief Performs the decimator filter operation.
+ *
+ * @param[in] in Pointer to the input array
+ * @param[out] out Pointer to the output array
+ * @param[in] size Array size
+ * @param[in] n Decimator factor
+ *
+ */
+void asm_downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n);
+
 #endif /* INC_ASM_H_ */
 
