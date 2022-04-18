@@ -19,7 +19,7 @@
 .global asm_pack_32_to_16
 .global asm_max
 .global asm_downsample
-
+.global asm_reverse
 
 .thumb_func
    asm_zeros:
@@ -177,4 +177,29 @@
 	.downsample_out:
 	pop {r4-r5}
 	mov pc, lr
+
+
+.thumb_func
+	asm_reverse:
+	push {r4}
+	mov r2, #2
+	subs r4, r1, #1
+	udiv r1, r1, r2
+	mul r2, r4, r2
+	add r2, r0, r2
+	.asm_reverse_loop:
+	ldrh r3, [r0]
+	ldrh r4, [r2]
+
+	strh r4, [r0]
+	strh r3, [r2]
+
+	add r0, #2
+	sub r2, #2
+	subs r1, #1
+	bne .asm_reverse_loop
+	pop {r4}
+	mov pc, lr
+
+
 

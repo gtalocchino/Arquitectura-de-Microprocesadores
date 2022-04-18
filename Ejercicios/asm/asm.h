@@ -94,5 +94,15 @@ int32_t asm_max(int32_t *in, uint32_t size);
  */
 void asm_downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n);
 
+/**
+ * @brief Inverts the elements of an array.
+ *
+ * @param[in] in Pointer to the array
+ * @param[in] size Array size
+ *
+ */
+void asm_reverse(uint16_t *in, uint32_t size);
+
+
 #endif /* INC_ASM_H_ */
 
