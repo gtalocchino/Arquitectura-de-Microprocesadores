@@ -5,3 +5,4 @@ materia de Arquitectura de Microprocesadores
 
 ## Contenido
 * Preguntas orientadoras
+* Ejercicios en C y asm
