@@ -43,7 +43,7 @@
     y M4.
     
     A grandes rasgos la diferencia es el costo, la velocidad y el consumo de energía. Los 
-    Cortex M0 están optimizados para ocupar la menor cantidad de silicio y ser lo mas baratos 
+    Cortex M0 están optimizados para ocupar la menor cantidad de silicio y ser lo mas barato 
     posible. Frente a los Cortex M3 las diferencias a nivel de Hardware se traducen en
     que algunos core peripherals son opcionales, una arquitectura de memoria Von Neumann y la 
     falta de MPU. Por otro lado, los Cortex M4 añaden la posibilidad de contar opcionalmente 
@@ -68,8 +68,9 @@
     registros internos del procesador.
     
     \item ¿Cómo es el mapa de memoria de la familia?
+    
     Los Cortex M tiene un sistema de memoria con direcciones de 32 bits que
-    generan un espacio de lineal de direcciones de 4GB. El cual, está participando en 
+    generan un espacio de lineal de direcciones de 4GB. El cual, está particionado en 
     número de regiones asignados a diferentes usos. En la Figura \ref{fig:map} se muestra
     un ejemplo.
     \begin{itemize}
@@ -96,9 +97,9 @@
     \end{itemize}
     
     El MSP generalmente es reservado para el uso del kernel y manejos de excepciones mientras que 
-    PSP se utiliza en las tareas. La ventaja que presenta es que el MSP se encuentra protegido del
-    stack del usuario incluso si el stack de usuario hizo overflow. Esto facilita la implementación
-    de sistemas operativos.
+    PSP se utiliza en las tareas. La ventaja que presenta esta configuración es que el 
+    MSP se encontraría protegido del stack del usuario incluso si el stack de usuario 
+    hizo overflow. Esto facilita notablemente la implementación de sistemas operativos.
     
     \item Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y 
     como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo 
@@ -145,7 +146,7 @@
     \item ¿Qué ventajas presenta el uso de instrucciones de ejecución condicional (IT)? Dé un
     ejemplo
     
-    El uso de instrucciones de ejecución condicional reduce el numero de instrucciones de salto
+    El uso de instrucciones de ejecución condicional reduce el número de instrucciones de salto
     en un programa. Esto por un lado mejora la densidad de código y por otro aumenta el rendimiento.
     Por ejemplo, las instrucciones de salto con costosas para el procesador ya que toma tres ciclos de 
     reloj rellenar nuevamente el pipeline luego de un salto. 
@@ -154,14 +155,14 @@
     \item Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
     
     \begin{description}
-        \item [Reset:] Esta excepcion es lanzada justo despues de que el procesador se reinicia.
+        \item [Reset:] Esta excepción es lanzada justo después de que el procesador se reinicia.
         Su manejador es realmente el punto de entrada del programa que se esta ejecutando.
         \item[NMI:] se trata de una excepción especial, que tiene la máxima prioridad después de 
         la de reset. Al igual que la excepción de reset, no puede ser enmascarada (es decir, desactivada), 
         y puede ser asociada a actividades críticas e inaplazables.
         \item[Hardfault:] es la excepción de fallo genérica, y por tanto relacionada con las excepciones de 
         software. Cuando las otras excepciones están deshabilitadas, actúa como colector de todo tipo de 
-        excepciones (por ejemplo, un acceso a la memoria a una ubicación no válida, se activan las 
+        excepciones (por ejemplo, un acceso a la memoria a una ubicación no válida, activa las 
         excepciones de hard fault si la de bus fault no está activada).
         
     \end{description}
@@ -224,11 +225,11 @@
     arrival.
     
     \begin{itemize}
-        \item tail chaining: Es una optimización realizada en el manejo de interrupciones en donde 
+        \item Tail chaining: Es una optimización realizada en el manejo de interrupciones en donde 
         interrupciones consecutivas se atienden sin la necesidad de guardar y restaurar el contexto del 
         procesador nuevamente  
         
-        \item late arrival: Es una característica en la cual si una interrupción con mayor prioridad 
+        \item Late arrival: Es una característica en la cual si una interrupción con mayor prioridad 
         llega mientras atiende una de menor prioridad, el Cortex-M detiene el proceso y atiende primero 
         la interrupción de mayor prioridad.
     \end{itemize}
