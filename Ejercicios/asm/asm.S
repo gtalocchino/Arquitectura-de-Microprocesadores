@@ -21,6 +21,7 @@
 .global asm_downsample
 .global asm_reverse
 
+
 .thumb_func
    asm_zeros:
       mov r2, #0
@@ -33,14 +34,14 @@
 
 .thumb_func
    asm_dot_product_32:
-   push {r4-r5}
+   push {r4-r5}     /* Preserving r4 and r5 value according to ARM PCS. */
    .asm_dot_product_32_loop:
       ldr r4, [r0], #4
-      mul r5, r4, r3
+      mul r5, r4, r3    /* Multiplication instruction. */
       str r5, [r1], #4
       subs r2, #1
       bne .asm_dot_product_32_loop
-      pop {r4-r5}
+      pop {r4-r5}   /* Restoring r4 and r5 value according to PCS. */
       mov pc, lr
 
 
@@ -48,9 +49,9 @@
    asm_dot_product_16:
    push {r4-r5}
    .asm_dot_product_16_loop:
-      ldrh r4, [r0], #2
+      ldrh r4, [r0], #2     /* Loading from memory only a halfword. */
       mul r5, r4, r3
-      strh r5, [r1], #2
+      strh r5, [r1], #2      /* Storing in memory only a halfword. */
       subs r2, #1
       bne .asm_dot_product_16_loop
       pop {r4-r5}
@@ -65,8 +66,8 @@
       mul r5, r4, r3
       ldr r6, =0xfff
       cmp r5, r6
-      ITT HI
-      movhi r5, r6	;movhi r5, r6
+      ITT HI     /* Saturation implementation using IT instruction. */
+      movhi r5, r6	/* It is possible to use usat too. */
       strh r5, [r1], #2
       subs r2, #1
       bne .asm_dot_product_12_loop
@@ -75,7 +76,7 @@
 
 
 .thumb_func
-	asm_window_filter:
+	asm_window_filter:    /* Window filter function with roll-over. */
 	push {r4-r9}
 	sub r3, r2, #1
 
@@ -86,7 +87,7 @@
 	.asm_window_filter_loop_2:
 
 	add r6, r5, r4
-  	udiv r7, r6, r2
+  	udiv r7, r6, r2      /* Implementing modulo operation. */
   	mls r7, r2, r7, r6
 
 	ldrh r8, [r0, r7, LSL 1]
@@ -109,13 +110,13 @@
 
 
 .thumb_func
-	asm_pack_32_to_16:
+	asm_pack_32_to_16:  
 	push {r4}
-	ldr r3, =0xffff
+	ldr r3, =0xffff      /* Constant to implement a mask. */
 	.asm_pack_32_to_16_loop:
 	ldr r4, [r0], #4
 
-	lsr r4, r4, 16
+	lsr r4, r4, 16   /* Left shift operation. */
 	and r4, r4, r3
 
 	strh r4, [r1], #2
@@ -131,7 +132,7 @@
 	push {r4-r5}
 	mov r2, #1
 
-	mov r3, #0
+	mov r3, #0      /* Assuming that the first value is the maximum. */
 	ldr r4, [r0], #4
 
 	.asm_max_loop:
@@ -140,7 +141,7 @@
 	cmp r5, r4
 
 	ITT GT
-	movgt r4, r5
+	movgt r4, r5     /* Swapping if new maximum encountered. */
 	movgt r3, r2
 
 	add r2, #1
@@ -148,7 +149,7 @@
 	bgt .asm_max_loop
 	pop {r4-r5}
 
-	mov r0, r3
+	mov r0, r3   /* Returning value placed in r0 according to according to ARM PCS. */
 	mov pc, lr
 
 
@@ -163,7 +164,7 @@
 	ldr r5, [r0], #4
 
 	cmp r3, r4
-	ITTT EQ
+	ITTT EQ     /* Checking if the sample must be deleted. */
 	moveq r4, #0
 	subeq r2, #1
 	beq .downsample_loop
@@ -176,25 +177,25 @@
 	bne .downsample_loop
 	.downsample_out:
 	pop {r4-r5}
-	mov pc, lr
+	mov pc, lr  
 
 
 .thumb_func
-	asm_reverse:
+	asm_reverse:    
 	push {r4}
 	mov r2, #2
 	subs r4, r1, #1
-	udiv r1, r1, r2
+	udiv r1, r1, r2 /* Unsigned multiplication division. */
 	mul r2, r4, r2
 	add r2, r0, r2
 	.asm_reverse_loop:
-	ldrh r3, [r0]
+	ldrh r3, [r0]   /* Swapping operation whith temporal variable. */
 	ldrh r4, [r2]
 
 	strh r4, [r0]
 	strh r3, [r2]
 
-	add r0, #2
+	add r0, #2  /* Updating memory locations. */
 	sub r2, #2
 	subs r1, #1
 	bne .asm_reverse_loop
