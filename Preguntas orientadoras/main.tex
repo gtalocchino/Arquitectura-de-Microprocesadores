@@ -196,7 +196,6 @@
     lea estas dos palabras, el procesador configura el MSP y el contador de programa (PC) con estos 
     valores.
     
-    
     \setItemnumber{12}
     \item ¿Qué entiende por ``core peripherals''? ¿Qué diferencia existe entre estos y 
     el resto de los periféricos?
@@ -208,12 +207,33 @@
     variarán notablemente entre fabricantes. Algunos ejemplos de core peripherals para ARM Cortex M 
     incluyen el NVIC, el SysTick, la MPU.
     
+    \setItemnumber{13} 
+   \item ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
+    
+    Las prioridades de las interrupciones se implementan utilizando un esquema de numeración de prioridad 
+    "invertido". Las interrupciones de prioridad mas alta tiene valores numéricos mas bajos que las de menor 
+    prioridad. Por ejemplo si asignamos prioridad 0 al un TIMER y prioridad 1 a una UART la interrupción del
+    TIMER tendrá mayor prioridad.
+    
     \setItemnumber{14}
     \item ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
     
     El estándar llamado Common Microcontroller Software Interface Standard (CMSIS) desarrollado por 
     ARM es un capa de abstracción para microcontroladores Cortex M. Se encargar de definir interfaces
     para acceso al hardware genérico que estos comparten. Entre las ventajas que aporta se encuentran:
+    
+    \setItemnumber{15}
+    \item Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el 
+    microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo
+    
+    Cuando una interrupción se dispara, se marca como pendiente hasta que el procesador pueda atenderla. 
+    Si no se está procesando ninguna otra interrupción, el procesador borra automáticamente el estado 
+    de pendiente y comienza a servirla casi inmediatamente. El proceso para atender la interrupción puede
+    dividirse en tres etapas. En la primera se pushean algunos registros internos al stack, se realiza el 
+    fetch de la dirección de la ISR y se actualizan algunos registros como el LR, PSR, PC, etc. En la segunda 
+    el procesador ya  ha entrado en modo handler y ejecuta la ISR. Por ultimo una vez ejecutada la ISR, 
+    se hace pop de los registros pusheados anteriormente y se retorna a la próxima instrucción a ejecutar desde 
+    donde se salto a atender la interrupción.
     
     \begin{itemize}
         \item Reduce la curva de aprendizaje del programador.
