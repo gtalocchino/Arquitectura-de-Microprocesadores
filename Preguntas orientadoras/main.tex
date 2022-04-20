@@ -129,9 +129,9 @@
         privilegiado y no privilegiado.
     \end{itemize}
     
-    De modo privilegiado a no privilegiado se puede pasar simplemente seteando el registro CONTROL en el bit 0.
-    Para pasar de modo no privilegiado a privilegiado es necesario generar una excepción y borrar el bit 0 
-    del registro CONTROL.
+    De modo privilegiado a no privilegiado se puede pasar simplemente seteando el registro CONTROL en el 
+    bit 0. Para pasar de modo no privilegiado a privilegiado es necesario generar una excepción y borrar 
+    el bit 0 del registro CONTROL.
 
     \setItemnumber{7}
     \item ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
@@ -230,8 +230,8 @@
         procesador nuevamente  
         
         \item Late arrival: Es una característica en la cual si una interrupción con mayor prioridad 
-        llega mientras atiende una de menor prioridad, el Cortex-M detiene el proceso y atiende primero 
-        la interrupción de mayor prioridad.
+        llega después que el procesador ha iniciado el procedimiento para atender la primer interrupción,
+        una vez que finalice este proceso se pasara a atender la interrupción de mayor prioridad primero.
     \end{itemize}
     
     
