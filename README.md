@@ -5,4 +5,4 @@ materia de Arquitectura de Microprocesadores
 
 ## Contenido
 * Preguntas orientadoras
-* Codniog fuente de los ejercicios en C y asm
+* Codigo fuente de los ejercicios en C y asm
