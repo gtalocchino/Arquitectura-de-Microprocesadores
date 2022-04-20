@@ -28,8 +28,8 @@
    .asm_zeros_loop:
       str r2, [r0], #4
       subs r1, #1
-      bne .asm_zeros_loop
-      mov pc, lr
+      bne .asm_zeros_loop    /* Loop implementation. */
+      mov pc, lr    /* It is possible to use bx lr. */
 
 
 .thumb_func
@@ -41,7 +41,7 @@
       str r5, [r1], #4
       subs r2, #1
       bne .asm_dot_product_32_loop
-      pop {r4-r5}   /* Restoring r4 and r5 value according to PCS. */
+      pop {r4-r5}   /* Restoring r4 and r5 value according to ARM PCS. */
       mov pc, lr
 
 
@@ -116,7 +116,7 @@
 	.asm_pack_32_to_16_loop:
 	ldr r4, [r0], #4
 
-	lsr r4, r4, 16   /* Left shift operation. */
+	lsr r4, r4, 16   /* Logical shift right operation (r4 >>= 16). */
 	and r4, r4, r3
 
 	strh r4, [r1], #2
