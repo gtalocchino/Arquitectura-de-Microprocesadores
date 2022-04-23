@@ -20,6 +20,7 @@
 .global asm_max
 .global asm_downsample
 .global asm_reverse
+.global asm_echo
 
 
 .thumb_func
@@ -202,4 +203,34 @@
 	pop {r4}
 	mov pc, lr
 
+.thumb_func
+	asm_echo:
+	push {r4-r8}
+	mov r5, r0
+	mov r3, #441 /* I read and write in pairs. Thus 441 = 882 / 2.  */
+	.asm_echo_loop:
+	ldr r4, [r0], #4
+	str r4, [r1], #4
+	subs r3, #1
+	bne .asm_echo_loop
+
+	mov r3, #441 /* By simd, loop_2 = (size - 882) / 2 */
+	mov r8, #2
+	udiv r2, r8
+	sub r3, r2, r3
+
+	.asm_echo_loop_2:
+	ldr r4, [r0], #4
+	ldr r6, [r5], #4
+
+	mov r8, #0	/* Table 5.49 SIMD Instructions Josep Yiu book. Page 176. */
+	shadd16 r7, r6, r8	/* Division with SIMD, (x / 2) = (x + 0) / 2 */
+	sadd16	r8, r7, r4 /* Signed Add 16. */
+	str r8, [r1], #4
+
+	subs r3, #1
+	bne .asm_echo_loop_2
+
+	pop {r4-r8}
+	mov pc, lr
 

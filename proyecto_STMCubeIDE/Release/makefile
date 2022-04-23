@@ -40,34 +40,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := adm
+BUILD_ARTIFACT_NAME := proyecto_STMCubeIDE
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-adm.elf \
+proyecto_STMCubeIDE.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-adm.list \
+proyecto_STMCubeIDE.list \
 
 OBJCOPY_BIN += \
-adm.bin \
+proyecto_STMCubeIDE.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: adm.elf secondary-outputs
+main-build: proyecto_STMCubeIDE.elf secondary-outputs
 
 # Tool invocations
-adm.elf: $(OBJS) $(USER_OBJS) /home/gianfranco/Documents/CESE/Programacion\ de\ Microcontroladores/Repos/PdM_workspace/adm/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "adm.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/gianfranco/Documents/CESE/Programacion de Microcontroladores/Repos/PdM_workspace/adm/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="adm.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+proyecto_STMCubeIDE.elf: $(OBJS) $(USER_OBJS) /home/gianfranco/Documents/CESE/Programacion\ de\ Microcontroladores/Repos/PdM_workspace/proyecto_STMCubeIDE/STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "proyecto_STMCubeIDE.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/gianfranco/Documents/CESE/Programacion de Microcontroladores/Repos/PdM_workspace/proyecto_STMCubeIDE/STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="proyecto_STMCubeIDE.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -76,19 +76,19 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-adm.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "adm.list"
+proyecto_STMCubeIDE.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "proyecto_STMCubeIDE.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-adm.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "adm.bin"
+proyecto_STMCubeIDE.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "proyecto_STMCubeIDE.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) adm.bin adm.elf adm.list default.size.stdout
+	-$(RM) default.size.stdout proyecto_STMCubeIDE.bin proyecto_STMCubeIDE.elf proyecto_STMCubeIDE.list
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)

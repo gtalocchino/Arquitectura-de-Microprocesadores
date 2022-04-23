@@ -207,6 +207,41 @@ int main(void)
       BSP_printf("asm: %u\r\n", cycles_asm);
    }
 
+   {
+      /* Echo delay calculation
+       *
+       * n = 20e-3 / (1 / 44100)
+       * n = 882
+       *
+       */
+
+      int16_t in[4096] = {0};
+      int16_t out_c[lengthof(in)] = {0};
+      int16_t out_asm[lengthof(in)] = {0};
+
+      for (size_t i = 0; i < lengthof(in); i++) {
+         in[i] = (uint32_t) i;
+      }
+
+      DWT->CYCCNT = 0u;
+      echo(in, out_c, lengthof(in));
+      volatile uint32_t cycles_c =  DWT->CYCCNT;
+
+      DWT->CYCCNT = 0u;
+      asm_echo(in, out_asm, lengthof(in));
+      volatile uint32_t cycles_asm =  DWT->CYCCNT;
+
+
+      BSP_printf("Ej10\r\n");
+
+      if (memcmp(out_c, out_asm, sizeof(out_c))) {
+         BSP_printf("Error\r\n");
+      }
+
+      BSP_printf("C: %u\r\n", cycles_c);
+      BSP_printf("asm: %u\r\n", cycles_asm);
+   }
+
    BSP_printf("Program finisehd\r\n");
    /* Infinite loop */
    while (1)

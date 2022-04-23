@@ -87,3 +87,13 @@ void reverse(uint16_t *in, uint32_t size) {
    }
 }
 
+void echo(int16_t *in, int16_t *out, uint32_t size) {
+   for (uint32_t i = 0; i < size; i++) {
+      if (i < 882) {
+         out[i] = in[i];
+      } else {
+         out[i] = in[i] + in[i - 882] / 2;
+      }
+   }
+}
+

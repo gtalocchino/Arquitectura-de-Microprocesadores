@@ -104,4 +104,14 @@ void downsample(int32_t *in, int32_t *out, uint32_t size, uint32_t n);
  */
 void reverse(uint16_t *in, uint32_t size);
 
+/**
+ * @brief This function introduces an echo at 20 ms of a signal sampled at 44.1 KHz
+ *
+ * @param[in] in Pointer to the array
+ * @param[out] out Pointer to the output array
+ * @param[in] size Array size
+ *
+ */
+void echo(int16_t *in, int16_t *out, uint32_t size);
+
 #endif /* C_H_ */
